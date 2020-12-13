@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { Alert, PageSection } from '@patternfly/react-core';
 import { DynamicImport } from '@app/DynamicImport';
 import { accessibleRouteChangeHandler } from '@app/utils/utils';
@@ -9,6 +9,8 @@ import { ProfileSettings } from '@app/Settings/Profile/ProfileSettings';
 import { NotFound } from '@app/NotFound/NotFound';
 import { useDocumentTitle } from '@app/utils/useDocumentTitle';
 import { LastLocationProvider, useLastLocation } from 'react-router-last-location';
+import Login from './Login/Login';
+import keycloak from './utils/keycloak';
 
 let routeFocusTimer: number;
 
@@ -63,7 +65,7 @@ const routes: AppRouteConfig[] = [
     component: Dashboard,
     exact: true,
     label: 'Dashboard',
-    path: '/',
+    path: '/dashboard',
     title: 'PatternFly Seed | Main Dashboard',
   },
   {
@@ -115,7 +117,18 @@ const RouteWithTitleUpdates = ({ component: Component, isAsync = false, title, .
   useDocumentTitle(title);
 
   function routeWithTitle(routeProps: RouteComponentProps) {
-    return <Component {...rest} {...routeProps} />;
+    if (keycloak.authenticated) {
+      return <Component {...rest} {...routeProps} />
+    } else {
+      return (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: routeProps.location },
+          }}
+        />
+      )
+    }
   }
 
   return <Route render={routeWithTitle} />;
@@ -144,6 +157,7 @@ const AppRoutes = (): React.ReactElement => (
           isAsync={isAsync}
         />
       ))}
+      <Route component={Login} path="/login" />
       <PageNotFound title="404 Page Not Found" />
     </Switch>
   </LastLocationProvider>
