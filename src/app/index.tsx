@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { AppLayout } from '@app/AppLayout/AppLayout';
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { AppRoutes } from '@app/routes';

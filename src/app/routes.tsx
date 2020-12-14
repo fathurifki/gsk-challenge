@@ -11,6 +11,9 @@ import { useDocumentTitle } from '@app/utils/useDocumentTitle';
 import { LastLocationProvider, useLastLocation } from 'react-router-last-location';
 import Login from './Login/Login';
 import keycloak from './utils/keycloak';
+import DetailPage from './DetailPage/Detaill';
+import SubDetailPage from './DetailPage/SubDetail';
+import DestinationPage from './DetailPage/Destination';
 
 let routeFocusTimer: number;
 
@@ -69,6 +72,27 @@ const routes: AppRouteConfig[] = [
     title: 'PatternFly Seed | Main Dashboard',
   },
   {
+    component: DetailPage,
+    exact: false,
+    // label: 'Dashboard',
+    path: '/detail/:params',
+    title: 'Detail Page',
+  },
+  {
+    component: SubDetailPage,
+    exact: false,
+    // label: 'Dashboard',
+    path: '/subdetail/:params',
+    title: 'Sub Detail Page',
+  },
+  {
+    component: DestinationPage,
+    exact: false,
+    // label: 'Dashboard',
+    path: '/destination/:params',
+    title: 'Destination Page',
+  },
+  {
     component: Support,
     exact: true,
     isAsync: true,
@@ -117,18 +141,18 @@ const RouteWithTitleUpdates = ({ component: Component, isAsync = false, title, .
   useDocumentTitle(title);
 
   function routeWithTitle(routeProps: RouteComponentProps) {
-    if (keycloak.authenticated) {
-      return <Component {...rest} {...routeProps} />
-    } else {
-      return (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: routeProps.location },
-          }}
-        />
-      )
-    }
+    // if (keycloak.authenticated) {
+    return <Component {...rest} {...routeProps} />
+    // } else {
+    //   return (
+    //     <Redirect
+    //       to={{
+    //         pathname: '/login',
+    //         state: { from: routeProps.location },
+    //       }}
+    //     />
+    //   )
+    // }
   }
 
   return <Route render={routeWithTitle} />;
