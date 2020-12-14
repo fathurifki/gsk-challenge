@@ -20,7 +20,7 @@ const Login = () => {
 
     return (
         <div>
-            <p>This is Login Page</p>
+            <h2>Unauthenticated !</h2>
             <button type="button" onClick={login}>Login</button>
         </div>
     )

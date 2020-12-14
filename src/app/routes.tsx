@@ -141,18 +141,18 @@ const RouteWithTitleUpdates = ({ component: Component, isAsync = false, title, .
   useDocumentTitle(title);
 
   function routeWithTitle(routeProps: RouteComponentProps) {
-    // if (keycloak.authenticated) {
+    if (keycloak.authenticated) {
     return <Component {...rest} {...routeProps} />
-    // } else {
-    //   return (
-    //     <Redirect
-    //       to={{
-    //         pathname: '/login',
-    //         state: { from: routeProps.location },
-    //       }}
-    //     />
-    //   )
-    // }
+    } else {
+      return (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: routeProps.location },
+          }}
+        />
+      )
+    }
   }
 
   return <Route render={routeWithTitle} />;

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { PageSection, Title, Card, CardTitle, Grid, GridItem, CardBody, Flex, FlexItem, Stack, StackItem } from '@patternfly/react-core';
+import { PageSection, Title, Card, CardTitle, CardBody, Flex, FlexItem, Stack, StackItem } from '@patternfly/react-core';
 import { useKeycloak } from '@react-keycloak/web';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ChartDonut } from '@patternfly/react-charts';
 import { data } from '@app/dummy';
 
@@ -59,7 +59,7 @@ const Dashboard: React.FunctionComponent = () => {
   return (
     <PageSection>
       <Flex direction={{ default: 'row' }}>
-        <Title headingLevel="h1" size="lg">Dashboard</Title>
+        <Title headingLevel="h1" size="lg">NxBridge Admin Dashboard</Title>
         {
           !!keycloak?.authenticated && (
             <button type="button" onClick={() => keycloak.logout()}>Logout</button>
